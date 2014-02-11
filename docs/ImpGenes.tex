@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[nodayofweek]{datetime} % format date and time
+
+\usepackage[authoryear]{natbib}
+
+\usepackage[letterpaper]{geometry} % easy way to set margins and paper size
+\geometry{hmargin={1in,1in},vmargin={1in,1in}}
+
+\usepackage{titling}
+
+\usepackage{amsmath}
+\usepackage{wasysym}
+
+\usepackage{tabularx}
+% define new column types
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X} 
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+\newcolumntype{W}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{y}[1]{>{\raggedright\arraybackslash}#1}
+\newcolumntype{z}[1]{>{\centering\arraybackslash}#1}
+\newcolumntype{w}[1]{>{\raggedleft\arraybackslash}#1}
+\renewcommand{\tabularxcolumn}[1]{>{\arraybackslash}m{#1}}
+
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{enumitem}
+\usepackage{setspace}
+
+\usepackage{appendix}
+
+\usepackage{hyperref}
+
+\usepackage{lineno}
+\modulolinenumbers[2]
+
+%%% Begin patch to amsmath to work with lineno %%%
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+%%% End patch to amsmath to work with lineno %%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% XeLaTeX font settings: COMMENT OUT IF NOT RUNNING XeLaTeX
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Baskerville}
+%\setsansfont[Scale=MatchLowercase]{Myriad Pro}
+\setmonofont[Scale=MatchLowercase]{Monaco}
+\usepackage{unicode-math}
+\setmathfont[Scale=MatchLowercase]{Baskerville}
+\setmathfont[Scale=MatchLowercase, range=\mathup/{num,latin,Latin}]{Baskerville}
+\setmathfont[Scale=MatchLowercase, range=\mathit/{latin,Latin}]{Baskerville Italic}
+\setmathfont[Scale=MatchLowercase, range=\mathbfup/{num,latin,Latin}]{Baskerville Bold}
+% \setmathfont[range=\mathup/{greek,Greek},Scale=MatchLowercase]{Baskerville}
+% \setmathfont[range=\mathbfup/{greek,Greek},Scale=MatchLowercase]{Baskerville Bold}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[explicit]{titlesec}
+\titleformat{\section}{\large \bfseries \scshape}{\thesection.}{1ex}{#1}
+\titlespacing{\section}{0pt}{1.5ex plus 0.5ex minus 0.5ex}{0.5ex plus 0.5ex minus 0.5ex}
+\titleformat{\subsection}{\bfseries \itshape}{\thesubsection.}{1ex}{#1}
+\titlespacing{\subsection}{0pt}{1ex plus 0.25ex minus 0.25ex}{0.0ex plus 0.25ex minus 0.25ex}
+\titleformat{\subsubsection}[runin]{\bfseries}{\roman{subsubsection}}{1ex}{#1.}
+\titlespacing{\subsubsection}{0pt}{1.5ex plus 0.5ex minus 0.25ex}{1em}
+
+% new commands
+\newcommand{\nb}[1]{\textcolor{red}{\textit{\textbf{#1}}}} % a "nota bene" command for highlighting spots to fix
+\newcommand{\der}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\ShI}{Shi}
+\DeclareMathOperator{\ChI}{Chi}
+\newcommand{\primen}{^{\prime}\!}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\Fst}{F_{\mathrm{ST}}}
+
+
+\begin{document}
+
+\title{Quantitative Genomics and Genomic Imprinting}
+\author{Van Cleve and Brandvain}
+\date{\today}
+\maketitle
+
+\section{Annotated Bibliography}
+
+\begin{description}
+\item[\citep{Visscher2006}] Original paper that stimulated the project.  Calculates heritability ($h^2$) from genome-wide data
+\item[\citep{Yang2014}] Recent review paper that covers mixed-model methods for estimating $h^2$ and controlling for population structure in GWAS studies.  Generally focuses on the use mixed models to estimate phenotype variance components on a marker-by-marker basis and computational methods that improve the estimation of such models.
+\item[\citep{Kang2010}] Apparently assume that phenotype variance components are identical across markers, which simplifies the estimation and application of the mixed model to each SNP.
+\item[\citep{Zhang2010a}] Ditto.
+\item[\citep{Yang2011}] Introduces ``genome-wide complex trait analysis'' (GCTA) tool, which fits mixed models to SNP data.  Provides background on application of mixed models to SNP data, estimation of mixed models by REML, and estimating inbreeding coefficients and LD structure.
+\item[\citep{Kruuk2004}] ``Review the recent application of restricted maximum-likelihood ‘animal models’ to multigenerational data from natural populations''.
+\item[\citep{Wilson2010}] Background and worked tutorials on the animal model (mixed effect model).
+\item[\citep{Spencer2002}] Basic extension of quantitative genetics to genomic imprinting
+\end{description}
+
+\bibliographystyle{ecol_lett}
+\bibliography{refs}
+
+\end{document}
